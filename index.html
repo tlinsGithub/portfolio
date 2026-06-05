@@ -6,124 +6,115 @@
   <title>Álbum XV Alice 📸</title>
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    :root{--green:#1D9E75;--green-dark:#0F6E56;--bg:#f0f0ee;--surface:#fff;--text:#1a1a18;--muted:#6b6b68;--border:rgba(0,0,0,0.12);--radius:10px}
-    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);height:100vh;display:flex;flex-direction:column;overflow:hidden}
+    :root{--green:#1D9E75;--green-dark:#0F6E56;--bg:#f5f5f3;--surface:#fff;--text:#1a1a18;--muted:#6b6b68;--border:rgba(0,0,0,0.11);--radius:12px}
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:2rem 1rem 4rem}
 
-    header{background:var(--surface);border-bottom:1px solid var(--border);padding:0 1.25rem;height:52px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;gap:12px}
-    .hlogo{font-size:15px;font-weight:600;white-space:nowrap}
-    .htabs{display:flex;gap:6px}
-    .htab{padding:6px 14px;border-radius:99px;border:1px solid var(--border);background:transparent;font-size:13px;cursor:pointer;color:var(--muted);transition:all .15s;white-space:nowrap}
-    .htab.active{background:var(--green);color:white;border-color:transparent}
+    .card{background:var(--surface);border-radius:20px;box-shadow:0 2px 16px rgba(0,0,0,.07);padding:2rem;width:100%;max-width:560px}
 
-    .workspace{display:flex;flex:1;overflow:hidden}
+    .top{text-align:center;margin-bottom:2rem}
+    .top h1{font-size:22px;font-weight:700;margin-bottom:6px}
+    .top p{font-size:14px;color:var(--muted);line-height:1.5}
 
-    /* iframe */
-    .photos-pane{flex:1;display:flex;flex-direction:column;overflow:hidden}
-    .photos-pane iframe{flex:1;border:none;width:100%;height:100%}
+    .albums{display:flex;gap:10px;justify-content:center;margin-bottom:1.5rem}
+    .album-link{display:inline-flex;align-items:center;gap:7px;padding:9px 18px;border-radius:99px;border:1.5px solid var(--border);background:var(--bg);font-size:13px;font-weight:500;color:var(--text);text-decoration:none;transition:all .15s;cursor:pointer}
+    .album-link:hover{border-color:var(--green);color:var(--green);background:#f0faf6}
 
-    /* painel lateral */
-    .side{width:300px;min-width:300px;background:var(--surface);border-left:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden}
-    .side-header{padding:14px 16px 10px;border-bottom:1px solid var(--border);flex-shrink:0}
-    .side-header h2{font-size:14px;font-weight:600;margin-bottom:2px}
-    .side-header p{font-size:12px;color:var(--muted);line-height:1.4}
+    .divider{height:1px;background:var(--border);margin:1.5rem 0}
 
-    .add-area{padding:12px 16px;border-bottom:1px solid var(--border);flex-shrink:0}
+    .add-label{font-size:13px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px}
     .add-row{display:flex;gap:8px}
-    .add-input{flex:1;padding:8px 10px;border:1px solid var(--border);border-radius:var(--radius);font-size:13px;background:var(--bg);color:var(--text);outline:none}
+    .add-input{flex:1;padding:11px 14px;border:1.5px solid var(--border);border-radius:var(--radius);font-size:14px;background:var(--bg);color:var(--text);outline:none;transition:border-color .15s}
     .add-input:focus{border-color:var(--green)}
-    .add-btn{padding:8px 14px;border-radius:var(--radius);border:none;background:var(--green);color:white;font-size:13px;font-weight:500;cursor:pointer;white-space:nowrap}
+    .add-btn{padding:11px 18px;border-radius:var(--radius);border:none;background:var(--green);color:white;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;transition:background .15s}
     .add-btn:hover{background:var(--green-dark)}
-    .hint{font-size:11px;color:var(--muted);margin-top:6px}
+    .hint{font-size:12px;color:var(--muted);margin-top:8px}
 
-    .list-area{flex:1;overflow-y:auto;padding:10px 16px}
-    .empty{text-align:center;padding:2rem 1rem;color:var(--muted);font-size:13px;line-height:1.6}
-    .photo-item{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;background:var(--bg);margin-bottom:6px;font-size:13px}
-    .photo-item .num{background:var(--green);color:white;font-size:11px;font-weight:700;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-    .photo-item .pname{flex:1;word-break:break-all}
-    .photo-item .del{background:none;border:none;color:#ccc;cursor:pointer;font-size:16px;padding:0 2px;line-height:1}
-    .photo-item .del:hover{color:#e55}
+    .list-wrap{margin-top:1.5rem}
+    .list-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+    .list-title{font-size:13px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+    .clear-btn{font-size:12px;color:#ccc;background:none;border:none;cursor:pointer;transition:color .15s}
+    .clear-btn:hover{color:#e55}
 
-    .side-footer{padding:12px 16px;border-top:1px solid var(--border);flex-shrink:0;display:flex;flex-direction:column;gap:8px}
-    .total{font-size:13px;color:var(--muted)}
-    .total span{font-weight:600;color:var(--green)}
-    .export-btn{width:100%;padding:10px;border-radius:var(--radius);border:none;background:var(--green);color:white;font-size:14px;font-weight:500;cursor:pointer}
+    .list{display:flex;flex-direction:column;gap:6px;min-height:60px}
+    .empty{text-align:center;padding:1.5rem;color:var(--muted);font-size:13px;line-height:1.6;background:var(--bg);border-radius:var(--radius)}
+    .item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:var(--radius);background:var(--bg);animation:fadeIn .2s ease}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+    .item .num{background:var(--green);color:white;font-size:11px;font-weight:700;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .item .name{flex:1;font-size:13px;word-break:break-word}
+    .item .del{background:none;border:none;color:#ccc;cursor:pointer;font-size:18px;padding:0 4px;line-height:1;transition:color .15s;flex-shrink:0}
+    .item .del:hover{color:#e55}
+
+    .footer{margin-top:1.5rem;display:flex;flex-direction:column;gap:8px}
+    .total-line{font-size:13px;color:var(--muted);text-align:center}
+    .total-line strong{color:var(--green)}
+    .export-btn{width:100%;padding:14px;border-radius:var(--radius);border:none;background:var(--green);color:white;font-size:15px;font-weight:600;cursor:pointer;transition:background .15s}
     .export-btn:hover{background:var(--green-dark)}
-    .clear-btn{width:100%;padding:8px;border-radius:var(--radius);border:1px solid var(--border);background:transparent;color:var(--muted);font-size:13px;cursor:pointer}
-    .clear-btn:hover{background:var(--bg)}
+    .export-btn:disabled{opacity:.4;cursor:default}
 
     /* Modal */
-    .modal-ov{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:center;justify-content:center;z-index:500;padding:1rem}
+    .modal-ov{position:fixed;inset:0;background:rgba(0,0,0,.4);display:none;align-items:center;justify-content:center;z-index:500;padding:1rem}
     .modal-ov.show{display:flex}
-    .modal{background:var(--surface);border-radius:14px;padding:1.75rem;max-width:540px;width:100%;box-shadow:0 8px 40px rgba(0,0,0,.2)}
-    .modal h2{font-size:17px;font-weight:600;margin-bottom:4px}
-    .modal p{font-size:13px;color:var(--muted);margin-bottom:1rem}
-    textarea{width:100%;height:220px;font-size:12px;font-family:monospace;border:1px solid var(--border);border-radius:var(--radius);padding:10px;resize:vertical;background:var(--bg);color:var(--text)}
-    .modal-acts{display:flex;gap:8px;margin-top:1rem;justify-content:flex-end}
-    .btn{padding:7px 14px;border-radius:var(--radius);border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:13px;cursor:pointer;font-weight:500}
+    .modal{background:var(--surface);border-radius:18px;padding:2rem;max-width:520px;width:100%;box-shadow:0 12px 50px rgba(0,0,0,.2)}
+    .modal h2{font-size:18px;font-weight:700;margin-bottom:4px}
+    .modal .sub{font-size:13px;color:var(--muted);margin-bottom:1rem}
+    textarea{width:100%;height:220px;font-size:12px;font-family:monospace;border:1.5px solid var(--border);border-radius:var(--radius);padding:12px;resize:vertical;background:var(--bg);color:var(--text);outline:none}
+    .modal-acts{display:flex;gap:8px;margin-top:1rem;justify-content:flex-end;flex-wrap:wrap}
+    .btn{padding:8px 16px;border-radius:var(--radius);border:1.5px solid var(--border);background:var(--surface);color:var(--text);font-size:13px;cursor:pointer;font-weight:500;transition:background .1s}
     .btn:hover{background:var(--bg)}
     .btn.p{background:var(--green);color:white;border-color:transparent}
     .btn.p:hover{background:var(--green-dark)}
-
-    @media(max-width:700px){
-      .side{width:260px;min-width:260px}
-    }
   </style>
 </head>
 <body>
 
-<header>
-  <div class="hlogo">📸 Álbum XV Alice</div>
-  <div class="htabs">
-    <button class="htab active" onclick="switchAlbum('ext')">🌿 Externas</button>
-    <button class="htab" onclick="switchAlbum('festa')">🎉 Festa</button>
-  </div>
-</header>
-
-<div class="workspace">
-  <!-- Google Fotos embutido -->
-  <div class="photos-pane">
-    <iframe id="gframe"
-      src="https://photos.google.com/share/AF1QipN8OAH21lX0kQguqy-gQRJKb9TsMcNCcxKsbwjoT_gHyuFLleUWyxKa8ElhfJ36Yg?key=cEhjMDFqdmExd3N4TjB3c2JNMkxTUWFzLXMyZjd3"
-      allow="fullscreen"
-      title="Álbum Google Fotos">
-    </iframe>
+<div class="card">
+  <div class="top">
+    <h1>📸 Álbum XV Alice</h1>
+    <p>Abra o Google Fotos ao lado, navegue pelas fotos e anote aqui as que quer no álbum físico.</p>
   </div>
 
-  <!-- Painel de seleção -->
-  <div class="side">
-    <div class="side-header">
-      <h2>✅ Fotos para o álbum físico</h2>
-      <p>Navegue pelas fotos ao lado, anote o número ou nome de cada uma que quiser e adicione aqui.</p>
-    </div>
+  <div class="albums">
+    <a class="album-link" href="https://photos.app.goo.gl/mtVv1en7Pj5MuC2cA" target="_blank">
+      🌿 Abrir Externas
+    </a>
+    <a class="album-link" href="https://photos.app.goo.gl/qeakwA9EyScAoMuS9" target="_blank">
+      🎉 Abrir Festa
+    </a>
+  </div>
 
-    <div class="add-area">
-      <div class="add-row">
-        <input class="add-input" id="inp" type="text" placeholder="Ex: Externa-001 ou DSC_7006" maxlength="80"
-          onkeydown="if(event.key==='Enter') addPhoto()"/>
-        <button class="add-btn" onclick="addPhoto()">+ Adicionar</button>
-      </div>
-      <div class="hint">💡 Pressione Enter para adicionar rápido</div>
-    </div>
+  <div class="divider"></div>
 
-    <div class="list-area" id="list">
-      <div class="empty" id="empty">
-        Nenhuma foto selecionada ainda.<br>Use o campo acima para ir adicionando as escolhidas.
-      </div>
-    </div>
+  <div class="add-label">Adicionar foto</div>
+  <div class="add-row">
+    <input class="add-input" id="inp" type="text"
+      placeholder="Nome ou número da foto (ex: DSC_7006)"
+      maxlength="100"
+      onkeydown="if(event.key==='Enter') addPhoto()"/>
+    <button class="add-btn" onclick="addPhoto()">+ Adicionar</button>
+  </div>
+  <div class="hint">💡 Pressione <strong>Enter</strong> para adicionar rapidamente</div>
 
-    <div class="side-footer">
-      <div class="total">Total selecionado: <span id="total">0</span> fotos</div>
-      <button class="export-btn" onclick="openExport()">⬇ Exportar lista</button>
+  <div class="list-wrap">
+    <div class="list-header">
+      <span class="list-title">Fotos selecionadas</span>
       <button class="clear-btn" onclick="clearAll()">✕ Limpar tudo</button>
     </div>
+    <div class="list" id="list">
+      <div class="empty">Nenhuma foto adicionada ainda.</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="total-line">Total: <strong id="total">0</strong> fotos selecionadas</div>
+    <button class="export-btn" id="export-btn" onclick="openExport()" disabled>⬇ Exportar lista para álbum físico</button>
   </div>
 </div>
 
-<!-- Modal export -->
+<!-- Modal -->
 <div class="modal-ov" id="modal">
   <div class="modal">
-    <h2>Lista para o álbum físico</h2>
-    <p id="modal-sub"></p>
+    <h2>Lista para álbum físico</h2>
+    <p class="sub" id="modal-sub"></p>
     <textarea id="modal-txt" readonly></textarea>
     <div class="modal-acts">
       <button class="btn" onclick="copyList()">📋 Copiar</button>
@@ -134,82 +125,65 @@
 </div>
 
 <script>
-const ALBUMS = {
-  ext:   'https://photos.google.com/share/AF1QipN8OAH21lX0kQguqy-gQRJKb9TsMcNCcxKsbwjoT_gHyuFLleUWyxKa8ElhfJ36Yg?key=cEhjMDFqdmExd3N4TjB3c2JNMkxTUWFzLXMyZjd3',
-  festa: 'https://photos.google.com/share/AF1QipNGFylDKFTmaEcKs7y6bKHT-2NHkvQqkOlNaZp_TMuQPE_n2fNqrt2i1mRRfSbqPg?key=MF9lelJzNHVrU1QteXRKUVhpWlFrOFZuR2NuaWpB'
-};
-
 let photos = [];
-let curAlbum = 'ext';
-
-function switchAlbum(key) {
-  curAlbum = key;
-  document.getElementById('gframe').src = ALBUMS[key];
-  document.querySelectorAll('.htab').forEach((b,i) => {
-    b.className = 'htab' + (['ext','festa'][i] === key ? ' active' : '');
-  });
-}
 
 function addPhoto() {
   const inp = document.getElementById('inp');
   const val = inp.value.trim();
-  if (!val) return;
-  // evita duplicata
+  if (!val) { inp.focus(); return; }
   if (photos.find(p => p.toLowerCase() === val.toLowerCase())) {
-    inp.value = '';
-    inp.focus();
-    return;
+    inp.select(); return; // já existe
   }
   photos.push(val);
   inp.value = '';
   inp.focus();
-  renderList();
+  render();
 }
 
 function removePhoto(i) {
   photos.splice(i, 1);
-  renderList();
+  render();
 }
 
 function clearAll() {
-  if (photos.length && !confirm('Limpar toda a lista?')) return;
+  if (photos.length === 0) return;
+  if (!confirm('Limpar toda a lista?')) return;
   photos = [];
-  renderList();
+  render();
 }
 
-function renderList() {
+function render() {
   const list = document.getElementById('list');
-  const empty = document.getElementById('empty');
   document.getElementById('total').textContent = photos.length;
+  document.getElementById('export-btn').disabled = photos.length === 0;
 
   if (photos.length === 0) {
-    list.innerHTML = '';
-    list.appendChild(empty);
-    return;
+    list.innerHTML = '<div class="empty">Nenhuma foto adicionada ainda.</div>';
+  } else {
+    list.innerHTML = photos.map((p, i) => `
+      <div class="item">
+        <div class="num">${i+1}</div>
+        <div class="name">${p}</div>
+        <button class="del" onclick="removePhoto(${i})" title="Remover">×</button>
+      </div>
+    `).join('');
   }
-
-  list.innerHTML = photos.map((p, i) => `
-    <div class="photo-item">
-      <div class="num">${i+1}</div>
-      <div class="pname">${p}</div>
-      <button class="del" onclick="removePhoto(${i})" title="Remover">×</button>
-    </div>
-  `).join('');
+  save();
 }
 
 function openExport() {
-  if (!photos.length) { alert('Adicione pelo menos uma foto!'); return; }
+  if (!photos.length) return;
   const date = new Date().toLocaleDateString('pt-BR');
   const txt = [
-    '══════════════════════════════',
-    '  ÁLBUM FÍSICO — XV Alice',
-    '══════════════════════════════',
-    `Data: ${date}`,
-    `Total: ${photos.length} fotos`,
+    '══════════════════════════════════',
+    '   ÁLBUM FÍSICO — XV Alice 📸',
+    '══════════════════════════════════',
+    `Data da seleção: ${date}`,
+    `Total de fotos: ${photos.length}`,
     '',
-    ...photos.map((p,i) => `${String(i+1).padStart(3,'0')}. ${p}`)
+    ...photos.map((p, i) => `${String(i+1).padStart(3,'0')}. ${p}`)
   ].join('\n');
-  document.getElementById('modal-sub').textContent = `${photos.length} fotos selecionadas para impressão`;
+  document.getElementById('modal-sub').textContent = `${photos.length} fotos selecionadas`;
   document.getElementById('modal-txt').value = txt;
   document.getElementById('modal').className = 'modal-ov show';
 }
@@ -225,25 +199,18 @@ function copyList() {
 function dlList() {
   const b = new Blob([document.getElementById('modal-txt').value], {type:'text/plain;charset=utf-8'});
   const a = document.createElement('a');
-  a.href = URL.createObjectURL(b);
-  a.download = 'album-fisico-xv-alice.txt';
-  a.click();
+  a.href = URL.createObjectURL(b); a.download = 'album-fisico-xv-alice.txt'; a.click();
 }
 
 document.getElementById('modal').addEventListener('click', e => {
   if (e.target === e.currentTarget) closeModal();
 });
 
-// Salva lista no localStorage para não perder se fechar
-function save() { try { localStorage.setItem('album-xv', JSON.stringify(photos)); } catch(e){} }
-function load() { try { photos = JSON.parse(localStorage.getItem('album-xv') || '[]'); } catch(e){ photos=[]; } }
+// Persistência local
+function save() { try { localStorage.setItem('xv-alice-album', JSON.stringify(photos)); } catch(e){} }
+function load() { try { photos = JSON.parse(localStorage.getItem('xv-alice-album') || '[]'); } catch(e){ photos = []; } }
 
-// Sobrescreve renderList para também salvar
-const _render = renderList;
-renderList = function() { _render(); save(); };
-
-load();
-renderList();
+load(); render();
 </script>
 </body>
 </html>
